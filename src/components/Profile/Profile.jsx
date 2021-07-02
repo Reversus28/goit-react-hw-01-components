@@ -1,32 +1,31 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import css from './Profile.module.css';
 
-function Profile(props) {
-  console.log('props', props);
+function Profile({ name, tag, location, avatar, stats }) {
   return (
-    <div class="profile">
-      <div class="description">
-        <img
-          src="https://www.flaticon.com/svg/static/icons/svg/3135/3135715.svg"
-          alt="Аватар пользователя"
-          class="avatar"
-        />
-        <p class="name">Petra Marica</p>
-        <p class="tag">@pmarica</p>
-        <p class="location">Salvador, Brasil</p>
+    <div className={css.profile}>
+      <div className={css.description}>
+        <div className={css.circle}>
+          <img src={avatar} alt="Аватар пользователя" className={css.avatar} />
+        </div>
+        <p className={css.name}>{name}</p>
+        <p className={css.tag}>@{tag}</p>
+        <p className={css.location}>{location}</p>
       </div>
 
-      <ul class="stats">
-        <li>
-          <span class="label">Followers</span>
-          <span class="quantity">1000</span>
+      <ul className={css.stats}>
+        <li className={css.stats__item}>
+          <span className={css.label}>Followers</span>
+          <span className={css.quantity}>{stats.followers}</span>
         </li>
-        <li>
-          <span class="label">Views</span>
-          <span class="quantity">2000</span>
+        <li className={css.stats__item}>
+          <span className={css.label}>Views</span>
+          <span className={css.quantity}>{stats.views}</span>
         </li>
-        <li>
-          <span class="label">Likes</span>
-          <span class="quantity">3000</span>
+        <li className={css.stats__item}>
+          <span className={css.label}>Likes</span>
+          <span className={css.quantity}>{stats.likes}</span>
         </li>
       </ul>
     </div>
@@ -35,13 +34,18 @@ function Profile(props) {
 
 export default Profile;
 
-// Profile.defaultProps = {
-//   imgUrl:
-//     'https://dummyimage.com/640x480/2a2a2a/ffffff&text=Product+image+placeholder',
-// }
+Profile.defaultProps = {
+  avatar: 'https://www.flaticon.com/svg/static/icons/svg/3135/3135715.svg',
+};
 
-// Profile.propTypes = {
-//   imgUrl: Profile.string,
-//   name: Profile.string.isRequired,
-//   price: Profile.number.isRequired,
-// }
+Profile.propTypes = {
+  avatar: PropTypes.string,
+  name: PropTypes.string.isRequired,
+  tag: PropTypes.string.isRequired,
+  location: PropTypes.string.isRequired,
+  stats: PropTypes.shape({
+    followers: PropTypes.number.isRequired,
+    views: PropTypes.number.isRequired,
+    likes: PropTypes.number.isRequired,
+  }).isRequired,
+};
